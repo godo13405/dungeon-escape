@@ -1,0 +1,29 @@
+{
+  "name": "pokemon-voice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "test",
+    "start": "node ./app.js",
+    "dev": "clear && DEBUG=true node ./app.js",
+    "ngrok": "./ngrok http 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/godo13405/pokemon-voice.git"
+  },
+  "author": "goncalo andrade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/godo13405/pokemon-voice/issues"
+  },
+  "homepage": "https://github.com/godo13405/pokemon-voice#readme",
+  "dependencies": {
+    "actions-on-google": "^2.5.0",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
+    "pokedex-promise-v2": "^3.1.1"
+  }
+}
