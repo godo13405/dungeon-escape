@@ -1,0 +1,10 @@
+{
+  "activity": {
+    "explore": {
+      "fail": [
+        "You have a look around, but don't find anything",
+        "A quick look around reveals nothing"
+      ]
+    }
+  }
+}

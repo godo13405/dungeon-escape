@@ -2,23 +2,42 @@
 
 const responses = {
   welcome: ({
-    input = null
+    input = null,
+    out = 'Hi, welcome to the wonderful world of Pokemon! Are you ready to choose your 1st Pokemon?',
+    sugg = [
+      'Yes, let\'s go!',
+      'No, not yet'
+    ]
   }) => {
-    let out = 'Hi, welcome to the wonderful world of Pokemon! Are you ready to choose your 1st Pokemon?',
-        sugg = [
-          'Yes, let\'s go!',
-          'No, not yet'
-        ];
-
     //check if it's the 1st time
     if (saveFile) {
       out = `Welcome back.<break time=\".4s\"/>
       Last we left off you and ${saveFile.party['1'].name} were going on adventure.<audio src=\"https://play.pokemonshowdown.com/audio/cries/${saveFile.party['1'].name}.mp3\"></audio>
-      You are in ${saveFile.location.replace(/[-]/ig, ' ')}.<break time=\".4s\"/>`;
+      You are in ${saveFile.location.replace(/[-]/ig, ' ')}.<break time=\".4s\"/>
+      Would you like to travel or have a look around?`;
       sugg = [
         'Travel',
         'Look around'
       ];
+    }
+
+    global.sugg = sugg;
+
+    out = tools.setResponse({
+      input:out,
+      suggestions: sugg
+    });
+
+    return response.json(out);
+  },
+  travelExplore: ({
+    input = null,
+    out = sak.i18n(i18n.activity.explore.fail),
+    sugg = global.sugg
+  }) => {
+    console.log(out);
+    if (location.pokemon_encounters) {
+      console.log(location.pokemon_encounters);
     }
 
     out = tools.setResponse({
@@ -28,12 +47,7 @@ const responses = {
 
     return response.json(out);
   },
-  lookAround: ({
-    input = null
-  }) => {
-    return response.json(out);
-  },
-  travelExplore: ({
+  travelMove: ({
     input = null
   }) => {
     let out = "You can go to ",

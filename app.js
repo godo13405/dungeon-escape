@@ -6,7 +6,7 @@ global.express = require('express');
 let compression = require('compression');
 global.bodyParser = require('body-parser');
 global.capabilities = process.env.CAPABILITIES ? [process.env.CAPABILITIES] : ['audio', 'screen'];
-global.i18n = require('./config/lang/en');
+global.i18n = require('./config/lang/en.json');
 global.ex = express();
 
 // const FBadmin = require('firebase-admin');
@@ -21,6 +21,7 @@ global.P = new Pokedex();
 
 global.params = {};
 global.suggestions = require('./config/suggestions');
+global.sugg = [];
 
 global.service = require('./service');
 
@@ -37,8 +38,10 @@ global.saveFile = {
 
 global.location = null;
 
-P.getLocationAreaByName('route-1' + '-area')
+P.getLocationAreaByName('pallet-town' + '-area')
     .then(function(response) {
+      global.location = response;
+      global.encounters = tools.areaEncounters(response);
     })
     .catch(function(error) {
       console.log('There was an ERROR: ', error);

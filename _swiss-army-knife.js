@@ -1,15 +1,15 @@
 'use strict';
 
 const sak = {
-  // shuffleArray: (arr, limit) => {
-  //   let output = arr.sort(() => {
-  //     return 0.5 - Math.random()
-  //   });
-  //   if (limit) {
-  //     output = output.slice(0, limit);
-  //   }
-  //   return output;
-  // },
+  shuffleArray: (arr, limit) => {
+    let output = arr.sort(() => {
+      return 0.5 - Math.random()
+    });
+    if (limit) {
+      output = output.slice(0, limit);
+    }
+    return output;
+  },
   cleanText: text => {
     return text && text.length ? text
       .replace(/\*+/g, '')
@@ -47,7 +47,7 @@ const sak = {
         }
       });
     }
-  }
+  },
   // combinePhrase: ({
   //   input = [],
   //   separator = ', ',
@@ -100,22 +100,22 @@ const sak = {
   // rng: (limit = 9) => {
   //   return Math.ceil(Math.random() * limit);
   // },
-  // i18n: (input, varReplace, prepose = false) => {
-  //   if (Array.isArray(input)) {
-  //     input = sak.shuffleArray(input, 1)[0];
-  //   }
-  //   if (varReplace) {
-  //     let rex;
-  //     for (let k in varReplace) {
-  //       rex = new RegExp(`<${k}>`, "g");
-  //       input = input.replace(rex, varReplace[k]);
-  //     }
-  //   }
-  //   if (prepose) {
-  //     sak.preposition(input);
-  //   }
-  //   return input;
-  // },
+  i18n: (input, varReplace, prepose = false) => {
+    if (Array.isArray(input)) {
+      input = sak.shuffleArray(input, 1)[0];
+    }
+    if (varReplace) {
+      let rex;
+      for (let k in varReplace) {
+        rex = new RegExp(`<${k}>`, "g");
+        input = input.replace(rex, varReplace[k]);
+      }
+    }
+    if (prepose) {
+      sak.preposition(input);
+    }
+    return input;
+  },
   // caseInsensitive: input => {
   //   return new RegExp(`^${input}$`, "i");
   // },

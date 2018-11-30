@@ -106,6 +106,17 @@ const tools = {
   save: (file) => {
     if (userId)
       db.ref('users/' + userId).set(saveFile);
+  },
+  areaEncounters: (area) => {
+    let e = area.pokemon_encounters,
+        out = {};
+    for (var x in e) {
+      if (e.hasOwnProperty(x)) {
+        
+      }
+    }
+
+    return out;
   }
 }
 
