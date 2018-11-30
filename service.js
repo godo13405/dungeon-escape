@@ -29,14 +29,12 @@ const service = {
   },
   router: (input, midIntention) => {
     switch (input) {
-      case 'firstTime.listStarter':
-      console.log(responses);
-        return responses.listStarter(input);
-    switch (input) {
-      case 'firstTime.pickStarter':
-        return responses.pickStarter();
+      case 'input.welcome':
+        return responses.welcome({input});
+      case 'firstTime.PickStarter.confirm':
+        return responses.confirmStarter({input});
     }
     return false;
   }
-}};
+};
 exports = module.exports = service;

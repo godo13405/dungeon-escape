@@ -1,0 +1,7 @@
+/* [{
+    "srcDir": ".",
+    "destDir": "dist",
+    "files": "**/*.js",
+    "command": "firebase deploy",
+    "showOutput": true
+}] */

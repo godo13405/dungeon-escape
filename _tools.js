@@ -56,6 +56,7 @@ const tools = {
       } else if (source === 'google') {
         output.payload = {
           google: {
+            userStorage: saveFile,
             expectUserResponse: true,
             is_ssml: true,
             richResponse: {
@@ -97,8 +98,15 @@ const tools = {
       if (!process.env.SILENT) console.log("\x1b[32m", speak ? speech : input.text, "\x1b[0m");
     }
     if (!process.env.SILENT && process.env.DEBUG) console.timeEnd('total response time');
+
+    // tools.save();
+
     return output;
   },
+  save: (file) => {
+    if (userId)
+      db.ref('users/' + userId).set(saveFile);
+  }
 }
 
 exports = module.exports = tools;

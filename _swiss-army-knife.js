@@ -39,6 +39,15 @@ const sak = {
     }
     return output;
   },
+  getContext: (contextName) => {
+    if (contextName) {
+      context.forEach((x) => {
+        if (x.name.match(/DefaultWelcomeIntent-yes-followup$/gi)) {
+          return x.parameters;
+        }
+      });
+    }
+  }
   // combinePhrase: ({
   //   input = [],
   //   separator = ', ',
