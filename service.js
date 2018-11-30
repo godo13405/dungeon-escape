@@ -1,6 +1,17 @@
 'use strict';
 
 const service = {
+  router: (input, midIntention) => {
+    switch (input) {
+      case 'input.welcome':
+        return responses.welcome({input});
+      case 'firstTime.PickStarter.confirm':
+        return responses.confirmStarter({input});
+      case 'travel.explore':
+        return responses.travelExplore({input});
+    }
+    return false;
+  },
   setCapabilities: input => {
     let output = input;
     if (input && input.source) {
@@ -26,15 +37,6 @@ const service = {
       output = global.capabilities;
     }
     return output;
-  },
-  router: (input, midIntention) => {
-    switch (input) {
-      case 'input.welcome':
-        return responses.welcome({input});
-      case 'firstTime.PickStarter.confirm':
-        return responses.confirmStarter({input});
-    }
-    return false;
   }
 };
 exports = module.exports = service;

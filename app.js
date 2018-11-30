@@ -16,12 +16,33 @@ global.ex = express();
 //
 // global.db = FBadmin.firestore();
 
+let Pokedex = require('pokedex-promise-v2');
+global.P = new Pokedex();
+
 global.params = {};
 global.suggestions = require('./config/suggestions');
 
 global.service = require('./service');
 
-global.saveFile = null;
+global.gameMap = require('./config/map.json');
+global.saveFile = {
+  location: "pallet-town",
+  party: {
+    1: {
+      name: 'bulbasaur',
+      level: 5
+    }
+  }
+};
+
+global.location = null;
+
+P.getLocationAreaByName('route-1' + '-area')
+    .then(function(response) {
+    })
+    .catch(function(error) {
+      console.log('There was an ERROR: ', error);
+    });
 
 const webhook = (request, response) => {
   if (!process.env.SILENT && process.env.DEBUG) console.time('total response time');

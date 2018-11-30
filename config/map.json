@@ -1,0 +1,17 @@
+{
+  "pallet-town": {
+    "adjacent": {
+      "viridian-forest": {
+        "leads-to": {
+          "name": "viridian-city"
+        }
+      },
+      "route-21": {
+        "access": "surf",
+        "leads-to": {
+          "name": "cinnabar-island"
+        }
+      }
+    }
+  }
+}
