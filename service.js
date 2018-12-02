@@ -7,8 +7,10 @@ const service = {
         return responses.welcome({input});
       case 'firstTime.PickStarter.confirm':
         return responses.confirmStarter({input});
-      case 'travel.explore':
-        return responses.travelExplore({input});
+      case 'travel.move':
+        return responses.travelMove({input});
+      case 'travel.getDirections':
+        return responses.travelGetDirections({input});
     }
     return false;
   },

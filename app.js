@@ -60,7 +60,7 @@ const webhook = (request, response) => {
   global.intention = actionArr[actionArr.length - 1];
   global.source = request.body.originalDetectIntentRequest.source || 'web';
   global.userId = request.body.user ? request.body.user.userId : null;
-  console.log(response.body);
+  global.params = request.body.queryResult.parameters;
 
   // Get surface capabilities, such as screen
   capabilities = service.setCapabilities(request.body.originalDetectIntentRequest);
@@ -72,6 +72,11 @@ const webhook = (request, response) => {
 global.sak = require('./_swiss-army-knife');
 global.tools = require('./_tools');
 global.responses = require('./_responses');
+
+const fs = require('fs');
+fs.readFile('./config/map.csv', 'utf8', function (err, fileData) {
+  global.map = sak.csvToJson(fileData);
+});
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 

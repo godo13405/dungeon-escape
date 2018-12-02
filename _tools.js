@@ -112,7 +112,7 @@ const tools = {
         out = {};
     for (var x in e) {
       if (e.hasOwnProperty(x)) {
-        
+
       }
     }
 

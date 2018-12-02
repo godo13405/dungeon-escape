@@ -12,9 +12,9 @@ const responses = {
     //check if it's the 1st time
     if (saveFile) {
       out = `Welcome back.<break time=\".4s\"/>
-      Last we left off you and ${saveFile.party['1'].name} were going on adventure.<audio src=\"https://play.pokemonshowdown.com/audio/cries/${saveFile.party['1'].name}.mp3\"></audio>
-      You are in ${saveFile.location.replace(/[-]/ig, ' ')}.<break time=\".4s\"/>
-      Would you like to travel or have a look around?`;
+Last we left off you and ${saveFile.party['1'].name} were going on adventure.<audio src=\"https://play.pokemonshowdown.com/audio/cries/${saveFile.party['1'].name}.mp3\"></audio>
+You are in ${saveFile.location.replace(/[-]/ig, ' ')}.<break time=\".4s\"/>
+Would you like to travel or have a look around?`;
       sugg = [
         'Travel',
         'Look around'
@@ -30,14 +30,40 @@ const responses = {
 
     return response.json(out);
   },
-  travelExplore: ({
+  travelGrind: ({
     input = null,
     out = sak.i18n(i18n.activity.explore.fail),
     sugg = global.sugg
   }) => {
-    console.log(out);
     if (location.pokemon_encounters) {
       console.log(location.pokemon_encounters);
+    }
+
+    out = tools.setResponse({
+      input:out,
+      suggestions: sugg
+    });
+
+    return response.json(out);
+  },
+  travelGetDirections: ({
+    input = null,
+    out = "You can go to ",
+    sugg = ['Look around']
+  }) => {
+    let coord = sak.searchInMatrix({
+      search: saveFile.location
+    });
+
+    let adj = sak.adjacent({coord});
+    if (adj && adj.length) {
+      sugg = adj.concat(sugg);
+
+      let adjLast = adj[adj.length - 1];
+      adj.pop();
+      adj = adj.join(', ') + ' or ' + adjLast;
+
+      out = out + adj;
     }
 
     out = tools.setResponse({
@@ -50,31 +76,11 @@ const responses = {
   travelMove: ({
     input = null
   }) => {
-    let out = "You can go to ",
-        sugg = [];
-    if (gameMap[saveFile.location].adjacent) {
-      let adj = [],
-          adjLoc;
-      for (var x in gameMap[saveFile.location].adjacent) {
-        if (gameMap[saveFile.location].adjacent.hasOwnProperty(x)) {
-          adjLoc = x;
-          if (x['leads-to']) {
-            adjLoc = x + ' which leads to ' + x['leads-to'];
-          }
-          adj.push(adjLoc);
-        }
-      }
-      adj[adj.length - 1] = 'or ' + adj[adj.length - 1];
-      adj = adj.join(', ');
-      out = out + adj;
-    }
-
-    out = tools.setResponse({
-      input:out,
-      suggestions: sugg
+    saveFile.location = params.location.toLowerCase().replace(/[\s]*/gi, '-');
+    responses.travelGetDirections({
+      input,
+      out: `You\'ve arrived in ${params.location}. You can now do to `
     });
-
-    return response.json(out);
   },
   confirmStarter: ({
     input = null
