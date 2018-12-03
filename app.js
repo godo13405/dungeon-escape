@@ -62,7 +62,6 @@ const webhook = (request, response) => {
   global.userId = request.body.user ? request.body.user.userId : null;
   global.params = request.body.queryResult.parameters;
 
-  console.log(request.body.originalDetectIntentRequest.payload.user.userStorage);
   if (request.body.originalDetectIntentRequest.payload.user) {
     global.saveFile = JSON.parse(request.body.originalDetectIntentRequest.payload.user.userStorage);
   }
