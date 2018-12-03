@@ -56,7 +56,7 @@ const tools = {
       } else if (source === 'google') {
         output.payload = {
           google: {
-            userStorage: saveFile,
+            userStorage: JSON.stringify(saveFile),
             expectUserResponse: true,
             is_ssml: true,
             richResponse: {

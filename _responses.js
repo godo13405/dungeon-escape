@@ -74,12 +74,13 @@ Would you like to travel or have a look around?`;
     return response.json(out);
   },
   travelMove: ({
-    input = null
+    input = null,
+    saveFile = global.saveFile
   }) => {
-    saveFile.location = params.location.toLowerCase().replace(/[\s]*/gi, '-');
+    saveFile.location = params.location.toLowerCase().replace(/\s/, '-');
     responses.travelGetDirections({
       input,
-      out: `You\'ve arrived in ${params.location}. You can now do to `
+      out: `You\'ve arrived in ${saveFile.location}. You can now have a look around or go to `
     });
   },
   confirmStarter: ({
