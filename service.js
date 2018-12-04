@@ -5,12 +5,16 @@ const service = {
     switch (input) {
       case 'input.welcome':
         return responses.welcome({input});
+      case 'noTracking':
+        return responses.noTracking({input});
       case 'firstTime.PickStarter.confirm':
         return responses.confirmStarter({input});
       case 'travel.move':
         return responses.travelMove({input});
       case 'travel.getDirections':
         return responses.travelGetDirections({input});
+      case 'confirmStarter.yes':
+        return responses.confirmStarter({input});
     }
     return false;
   },

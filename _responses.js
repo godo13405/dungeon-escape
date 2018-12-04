@@ -7,7 +7,8 @@ const responses = {
     sugg = [
       'Yes, let\'s go!',
       'No, not yet'
-    ]
+    ],
+    context = null
   }) => {
     //check if it's the 1st time
     if (saveFile) {
@@ -19,16 +20,36 @@ Would you like to travel or have a look around?`;
         'Travel',
         'Look around'
       ];
+    } else {
+      out = 'Hi, welcome to the wonderful world of Pokemon! Before we start, is it ok if I keep track of your progress? That way you can pick up where you left off next time.';
+      sugg = [
+        'Yes, keep my save file.',
+        'No, don\'t track my data'
+      ];
     }
 
     global.sugg = sugg;
 
     out = tools.setResponse({
       input:out,
-      suggestions: sugg
+      suggestions: sugg,
+      context
     });
 
     return response.json(out);
+  },
+  noTracking: ({
+    input = null,
+    out = 'Ok, I\'m not recording anything. Come back if you change your mind.'
+  }) => {
+    global.saveFile = null;
+      out = tools.setResponse({
+        input:out,
+        clearStorage: true,
+        conversationEnd: true
+      });
+
+      return response.json(out);
   },
   travelGrind: ({
     input = null,

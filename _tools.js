@@ -7,7 +7,10 @@ const tools = {
     pause = 5,
     followUp = true,
     source = global.source,
-    capabilities = global.capabilities
+    capabilities = global.capabilities,
+    context = null,
+    clearStorage = false,
+    conversationEnd = false
   }) => {
     let output,
       speak = !capabilities.includes('screen') && capabilities.includes('audio');
@@ -57,7 +60,7 @@ const tools = {
         output.payload = {
           google: {
             userStorage: JSON.stringify(saveFile),
-            expectUserResponse: true,
+            expectUserResponse: !conversationEnd,
             is_ssml: true,
             richResponse: {
               items: [{
@@ -69,6 +72,9 @@ const tools = {
             }
           }
         };
+        if (clearStorage) {
+          output.payload.google.resetUserStorage = true;
+        }
         if (suggestions.length && capabilities.includes('screen')) {
           output.payload.google.richResponse.suggestions = [];
           for (var i = 0; i < suggestions.length; i++) {
@@ -93,6 +99,21 @@ const tools = {
       }
       if (input.card) {
         output = tools.buildCard(output, input.card);
+      }
+
+      // Contexts
+      if (context) {
+        let c = request.body.queryResult.outputContexts[0].name;
+        c = c.substr(0, c.lastIndexOf("/"));
+
+        for (let x of context) {
+          let newContext = {
+            name: c + x.name,
+          };
+          if (x.lifespan) newContext.lifespanCount = x.lifespan;
+          if (x.parameters) newContext.parameters = x.parameters;
+          request.body.queryResult.outputContexts.push(newContext);
+        }
       }
 
       if (!process.env.SILENT) console.log("\x1b[32m", speak ? speech : input.text, "\x1b[0m");

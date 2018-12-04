@@ -26,6 +26,7 @@ global.sugg = [];
 global.service = require('./service');
 
 global.gameMap = require('./config/map.json');
+/*
 global.saveFile = {
   location: "pallet-town",
   party: {
@@ -35,17 +36,9 @@ global.saveFile = {
     }
   }
 };
-
+*/
+global.saveFile = null;
 global.location = null;
-
-P.getLocationAreaByName('pallet-town' + '-area')
-    .then(function(response) {
-      global.location = response;
-      global.encounters = tools.areaEncounters(response);
-    })
-    .catch(function(error) {
-      console.log('There was an ERROR: ', error);
-    });
 
 const webhook = (request, response) => {
   if (!process.env.SILENT && process.env.DEBUG) console.time('total response time');
@@ -65,8 +58,17 @@ const webhook = (request, response) => {
   if (request.body.originalDetectIntentRequest.payload.user) {
     global.saveFile = JSON.parse(request.body.originalDetectIntentRequest.payload.user.userStorage);
   }
-  console.log(saveFile);
 
+  if (saveFile && saveFile.location) {
+  P.getLocationAreaByName(saveFile.location + '-area')
+      .then(function(response) {
+        global.location = response;
+        global.encounters = tools.areaEncounters(response);
+      })
+      .catch(function(error) {
+        console.log('There was an ERROR: ', error);
+      });
+    }
   // Get surface capabilities, such as screen
   capabilities = service.setCapabilities(request.body.originalDetectIntentRequest);
 
