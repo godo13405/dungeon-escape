@@ -116,7 +116,7 @@ Would you like to travel or have a look around?`;
         }
       }
     };
-    let out = `<speech>Great, ${pkmn} will be your buddy.<audio src="https://play.pokemonshowdown.com/audio/cries/${pkmn}.mp3"></audio></speech>`;
+    let out = `<speech> Great, ${pkmn} will be your buddy.<audio src="https://play.pokemonshowdown.com/audio/cries/${pkmn}.mp3"></audio></speech>`;
 
     out = tools.setResponse({input:out});
 
