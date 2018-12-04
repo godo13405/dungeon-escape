@@ -9,34 +9,12 @@ global.capabilities = process.env.CAPABILITIES ? [process.env.CAPABILITIES] : ['
 global.i18n = require('./config/lang/en.json');
 global.ex = express();
 
-// const FBadmin = require('firebase-admin');
-// const FBfunctions = require('firebase-functions');
-//
-// FBadmin.initializeApp(FBfunctions.config().firebase);
-//
-// global.db = FBadmin.firestore();
-
-let Pokedex = require('pokedex-promise-v2');
-global.P = new Pokedex();
-
 global.params = {};
 global.suggestions = require('./config/suggestions');
 global.sugg = [];
 
 global.service = require('./service');
 
-global.gameMap = require('./config/map.json');
-/*
-global.saveFile = {
-  location: "pallet-town",
-  party: {
-    1: {
-      name: 'bulbasaur',
-      level: 5
-    }
-  }
-};
-*/
 global.saveFile = null;
 global.location = null;
 
@@ -55,20 +33,13 @@ const webhook = (request, response) => {
   global.userId = request.body.user ? request.body.user.userId : null;
   global.params = request.body.queryResult.parameters;
 
-  if (request.body.originalDetectIntentRequest.payload.user) {
+  if (request.body.originalDetectIntentRequest.payload.user.userStorage) {
     global.saveFile = JSON.parse(request.body.originalDetectIntentRequest.payload.user.userStorage);
   }
 
   if (saveFile && saveFile.location) {
-  P.getLocationAreaByName(saveFile.location + '-area')
-      .then(function(response) {
-        global.location = response;
-        global.encounters = tools.areaEncounters(response);
-      })
-      .catch(function(error) {
-        console.log('There was an ERROR: ', error);
-      });
-    }
+  }
+
   // Get surface capabilities, such as screen
   capabilities = service.setCapabilities(request.body.originalDetectIntentRequest);
 
@@ -93,7 +64,7 @@ ex.use(compression(6))
 ex.post('/', webhook);
 let port = process.env.PORT || 3000;
 ex.listen(port, () => {
-  if (!process.env.SILENT) console.log('Pokemon Voice is ready on port ' + port);
+  if (!process.env.SILENT) console.log('Dungeon is ready on port ' + port);
 });
 
 exports.webhook = webhook;

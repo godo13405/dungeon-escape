@@ -12,16 +12,15 @@ const responses = {
   }) => {
     //check if it's the 1st time
     if (saveFile) {
-      out = `Welcome back.<break time=\".4s\"/>
-Last we left off you and ${saveFile.party['1'].name} were going on adventure.<audio src=\"https://play.pokemonshowdown.com/audio/cries/${saveFile.party['1'].name}.mp3\"></audio>
-You are in ${saveFile.location.replace(/[-]/ig, ' ')}.<break time=\".4s\"/>
+      out = `Welcome back ${saveFile.class}.<break time=\".4s\"/>
+Last we left off you were in a ${saveFile.location || 'cell'}.<break time=\".4s\"/>
 Would you like to travel or have a look around?`;
       sugg = [
         'Travel',
         'Look around'
       ];
     } else {
-      out = 'Hi, welcome to the wonderful world of Pokemon! Before we start, is it ok if I keep track of your progress? That way you can pick up where you left off next time.';
+      out = 'Hi, welcome to the Dungeon. Before you start your daring escape, is it ok if I keep track of your progress? That way you can pick up where you left off next time.';
       sugg = [
         'Yes, keep my save file.',
         'No, don\'t track my data'
@@ -38,7 +37,12 @@ Would you like to travel or have a look around?`;
 
     return response.json(out);
   },
-  noTracking: ({
+  deleteGame: ({
+    input = null
+  }) => {
+    return responses.trackingNo({input});
+  },
+  trackingNo: ({
     input = null,
     out = 'Ok, I\'m not recording anything. Come back if you change your mind.'
   }) => {
@@ -104,21 +108,24 @@ Would you like to travel or have a look around?`;
       out: `You\'ve arrived in ${saveFile.location}. You can now have a look around or go to `
     });
   },
-  confirmStarter: ({
+  pickClass: ({
     input = null
   }) => {
-    let pkmn = sak.getContext('defaultwelcomeintent-yes-custom-followup');
     global.saveFile = {
-      party: {
-        1: {
-          name: pkmn,
-          level: 5
-        }
-      }
+      class: params.Class,
+      location: 'cell',
+      map: tools.generateMap({
+        level: 1,
+        theme: 'dungeon',
+        start: 'cell'
+      });
     };
-    let out = `<speech> Great, ${pkmn} will be your buddy.<audio src="https://play.pokemonshowdown.com/audio/cries/${pkmn}.mp3"></audio></speech>`;
+    let out = `<speech>Ok then, great ${params.Class}, let's begin your escape.</speech>`;
 
-    out = tools.setResponse({input:out});
+    out = tools.setResponse({
+      input:out,
+      conversationEnd: false
+    });
 
     return response.json(out);
   }

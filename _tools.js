@@ -124,9 +124,15 @@ const tools = {
 
     return output;
   },
-  save: (file) => {
-    if (userId)
-      db.ref('users/' + userId).set(saveFile);
+  generateMap: ({
+    level = 1,
+    theme = 'dungeon',
+    start = 'stairs'
+  }) => {
+
+  },
+  getMapAdjacent: ({}) => {
+
   },
   areaEncounters: (area) => {
     let e = area.pokemon_encounters,
