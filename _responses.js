@@ -73,27 +73,13 @@ Would you like to travel or have a look around?`;
   },
   travelGetDirections: ({
     input = null,
-    out = "You can go to ",
+    out = sak.i18n(i18n.activity.travel.getDirections),
     sugg = ['Look around']
   }) => {
-    let coord = sak.searchInMatrix({
-      search: saveFile.location
-    });
-
-    let adj = sak.adjacent({coord});
-    if (adj && adj.length) {
-      sugg = adj.concat(sugg);
-
-      let adjLast = adj[adj.length - 1];
-      adj.pop();
-      adj = adj.join(', ') + ' or ' + adjLast;
-
-      out = out + adj;
-    }
-
+    let exits = tools.getExits({sugg,out});
     out = tools.setResponse({
-      input:out,
-      suggestions: sugg
+      input:out + exits.paths,
+      suggestions: exits.sugg
     });
 
     return response.json(out);
@@ -102,29 +88,43 @@ Would you like to travel or have a look around?`;
     input = null,
     saveFile = global.saveFile
   }) => {
-    saveFile.location = params.location.toLowerCase().replace(/\s/, '-');
+    saveFile.location = params.location;
     responses.travelGetDirections({
       input,
       out: `You\'ve arrived in ${saveFile.location}. You can now have a look around or go to `
     });
   },
+  exploreLookAround: ({
+    input = null,
+    saveFile = global.saveFile
+  }) => {
+    let out = mapper.getDescription(saveFile.location),
+        exits = tools.getExits({});
+    out = tools.setResponse({
+      input:out + " " + exits.paths,
+      suggestions: exits.sugg
+    });
+
+    return response.json(out);
+  },
   pickClass: ({
-    input = null
+    input = null,
+    sugg = ['Travel', 'Look around']
   }) => {
     global.saveFile = {
       class: params.Class,
       location: 'cell',
-      map: mapper.generate({
+      map: {
         level: 1,
-        theme: 'dungeon',
-        start: 'cell'
-      })
+        theme: 'dungeon'
+      }
     };
-    let out = `<speech>Ok then, great ${params.Class}, let's begin your escape.</speech>`;
-
+    let out = `Ok then, great ${params.Class}, let's begin your escape. You are in a ${saveFile.location}, ${sak.lowerCaseLetter({input: mapper.getDescription(saveFile.location)})}`,
+        exits = tools.getExits({sugg: []});
+console.log(exits.sugg, exits.sugg.concat(sugg));
     out = tools.setResponse({
-      input:out,
-      conversationEnd: false
+      input:out + " " + exits.paths,
+      suggestions: exits.sugg.concat(sugg)
     });
 
     return response.json(out);

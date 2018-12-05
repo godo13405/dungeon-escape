@@ -48,49 +48,12 @@ const sak = {
       });
     }
   },
-  csvToJson: (input) => {
-    let row = input.split("\r\n"),
-        out = [];
-    for (let x of row) {
-      out.push(x.split(","));
-    }
-    return out;
-  },
-  searchInMatrix: ({
-    matrix = global.map,
-    search = null
+  lowerCaseLetter: ({
+    input = null,
+    start = 0,
+    end = 1
   }) => {
-    let out = [];
-    for (var x = 0; x < matrix.length; x++) {
-      out = [x, matrix[x].indexOf(search)];
-      if (out[1] > 0) {
-        return out;
-        break;
-      }
-    }
-  },
-  adjacent: ({
-    coord = null
-  }) => {
-    let out = [];
-    //above
-    if (map[coord[0] - 1][coord[1]]) {
-      out.push(map[coord[0] - 1][coord[1]]);
-    }
-    //below
-    if (map[coord[0] + 1][coord[1]]) {
-      out.push(map[coord[0] + 1][coord[1]]);
-    }
-    //left
-    if (map[coord[0]][coord[1] - 1]) {
-      out.push(map[coord[0]][coord[1] - 1]);
-    }
-    //left
-    if (map[coord[0]][coord[1] + 1]) {
-      out.push(map[coord[0]][coord[1] + 1]);
-    }
-
-    return out;
+    return input.substr(start, end).toLowerCase() + input.substr(end, input.length);
   },
   // combinePhrase: ({
   //   input = [],

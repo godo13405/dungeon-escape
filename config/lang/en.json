@@ -5,6 +5,13 @@
         "You have a look around, but don't find anything",
         "A quick look around reveals nothing"
       ]
+    },
+    "travel": {
+      "getDirections": [
+        "You can see the way to a ",
+        "Around you, you see a ",
+        "Laid before you is a "
+      ]
     }
   }
 }

@@ -124,15 +124,20 @@ const tools = {
 
     return output;
   },
-  generateMap: ({
-    level = 1,
-    theme = 'dungeon',
-    start = 'stairs'
+  getExits: ({
+    out = sak.i18n(i18n.activity.travel.getDirections),
+    sugg = ['Look around']
   }) => {
+      let paths = mapper.paths({});
+      sugg = paths.concat(sugg);
+      if (paths && paths.length && paths.length > 1) {
 
-  },
-  getMapAdjacent: ({}) => {
-
+        let pathsLast = paths[paths.length - 1];
+        paths.pop();
+        paths = paths.join(', a ') + ' and a ' + pathsLast;
+      }
+      paths = out + paths;
+      return {paths,sugg};
   },
   areaEncounters: (area) => {
     let e = area.pokemon_encounters,

@@ -51,12 +51,6 @@ global.sak = require('./_swiss-army-knife');
 global.mapper = require('./_map');
 global.tools = require('./_tools');
 global.responses = require('./_responses');
-mapper.generate({});
-
-const fs = require('fs');
-fs.readFile('./config/map.csv', 'utf8', function (err, fileData) {
-  global.map = sak.csvToJson(fileData);
-});
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = process.env.google_application_credentials;
 
