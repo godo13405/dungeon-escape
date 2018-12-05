@@ -114,11 +114,11 @@ Would you like to travel or have a look around?`;
     global.saveFile = {
       class: params.Class,
       location: 'cell',
-      map: tools.generateMap({
+      map: mapper.generate({
         level: 1,
         theme: 'dungeon',
         start: 'cell'
-      });
+      })
     };
     let out = `<speech>Ok then, great ${params.Class}, let's begin your escape.</speech>`;
 

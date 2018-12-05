@@ -5,7 +5,7 @@
     ],
       "description": "A small space, lined with cold stone walls. The rusted gate is slightly open and you can see a dimply lit corridor just outside.",
       "adjacent": {
-        100: {
+        "100": {
           "name": "corridor",
           "direction": "out"
         }
@@ -18,27 +18,27 @@
     ],
     "description": "A dimly lit stone passage extends before you. sconces on the walls provide just enough light to see.",
     "adjacent": {
-      15: {
+      "15": {
         "name": "dead-end",
         "direction": "ahead"
       },
-      20: {
+      "20": {
         "name": "room",
         "direction": "right"
       },
-      20: {
+      "20": {
         "name": "room",
         "direction": "left"
       },
-      15: {
+      "15": {
         "name": "corridor",
         "direction": "left"
       },
-      15: {
+      "15": {
         "name": "corridor",
         "direction": "right"
       },
-      15: {
+      "15": {
         "name": "corridor",
         "direction": "ahead"
       }
