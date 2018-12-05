@@ -86,13 +86,18 @@ Would you like to travel or have a look around?`;
   },
   travelMove: ({
     input = null,
+    sugg = [],
     saveFile = global.saveFile
   }) => {
-    saveFile.location = params.location;
-    responses.travelGetDirections({
-      input,
-      out: `You\'ve arrived in ${saveFile.location}. You can now have a look around or go to `
-    });
+    saveFile.location = params.Room;
+    console.log(saveFile);
+    let exits = tools.getExits({}),
+        out = tools.setResponse({
+          input: `${sak.i18n(i18n.activity.travel.move)} ${saveFile.location}. You can now have a look around or go to ${exits.paths}`,
+          suggestions: exits.sugg.concat(sugg)
+        });
+
+    return response.json(out);
   },
   exploreLookAround: ({
     input = null,

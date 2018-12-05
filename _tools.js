@@ -125,18 +125,30 @@ const tools = {
     return output;
   },
   getExits: ({
-    out = sak.i18n(i18n.activity.travel.getDirections),
     sugg = ['Look around']
   }) => {
-      let paths = mapper.paths({});
+      let pathsArr = mapper.paths({}),
+          paths = [],
+          pre = ',',
+          particle = 'a';
       sugg = paths.concat(sugg);
-      if (paths && paths.length && paths.length > 1) {
+console.log(pathsArr);
+      for (let i = 0; i < pathsArr.length; i++) {
+        let x = pathsArr[i];
+        console.log(x);
+        // last one
+        if (i == x.length - 1) {
+          pre = 'and';
+        }
 
-        let pathsLast = paths[paths.length - 1];
-        paths.pop();
-        paths = paths.join(', a ') + ' and a ' + pathsLast;
+        // is it the same room as the current location?
+        if (x === saveFile.location) {
+          particle = sak.i18n(i18n.activity.travel.deeper) + x;
+        }
+
+        paths = `${paths} ${pre} ${particle} ${x}`;
       }
-      paths = out + paths;
+
       return {paths,sugg};
   },
   areaEncounters: (area) => {
