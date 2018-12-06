@@ -13,7 +13,7 @@ const responses = {
     //check if it's the 1st time
     if (saveFile) {
       out = `Welcome back ${saveFile.class}.<break time=\".4s\"/>
-Last we left off you were in a ${saveFile.location || 'cell'}.<break time=\".4s\"/>
+Last we left off you were in a ${saveFile.location.name || 'cell'}.<break time=\".4s\"/>
 Would you like to travel or have a look around?`;
       sugg = [
         'Travel',
@@ -89,11 +89,13 @@ Would you like to travel or have a look around?`;
     sugg = [],
     saveFile = global.saveFile
   }) => {
-    saveFile.location = params.Room;
-    console.log(saveFile);
-    let exits = tools.getExits({}),
+    saveFile.location = {
+      "name": params.Room,
+      "adjacent": mapper.paths({})
+    };
+    let exits = tools.getExits({lastPre: 'or'}),
         out = tools.setResponse({
-          input: `${sak.i18n(i18n.activity.travel.move)} ${saveFile.location}. You can now have a look around or go to ${exits.paths}`,
+          input: `${sak.i18n(i18n.activity.travel.move)} the ${saveFile.location.name}. You can now have a look around or go to ${exits.paths}`,
           suggestions: exits.sugg.concat(sugg)
         });
 
@@ -118,15 +120,19 @@ Would you like to travel or have a look around?`;
   }) => {
     global.saveFile = {
       class: params.Class,
-      location: 'cell',
+      location: {
+        "name": 'cell',
+        adjacent: [
+          "corridor"
+        ]
+      },
       map: {
         level: 1,
         theme: 'dungeon'
       }
     };
-    let out = `Ok then, great ${params.Class}, let's begin your escape. You are in a ${saveFile.location}, ${sak.lowerCaseLetter({input: mapper.getDescription(saveFile.location)})}`,
+    let out = `Ok then, great ${params.Class}, let's begin your escape. You are in a ${saveFile.location.name}, ${sak.lowerCaseLetter({input: mapper.getDescription(saveFile.location.name)})}`,
         exits = tools.getExits({sugg: []});
-console.log(exits.sugg, exits.sugg.concat(sugg));
     out = tools.setResponse({
       input:out + " " + exits.paths,
       suggestions: exits.sugg.concat(sugg)

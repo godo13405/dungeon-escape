@@ -125,31 +125,29 @@ const tools = {
     return output;
   },
   getExits: ({
-    sugg = ['Look around']
+    sugg = ['Look around'],
+    pathsArr = saveFile.location.adjacent ? saveFile.location.adjacent : mapper.paths({}),
+    paths = [],
+    pre = ',',
+    lastPre = 'and',
+    particle = 'a',
+    anotherPre = i18n.activity.travel.another
   }) => {
-      let pathsArr = mapper.paths({}),
-          paths = [],
-          pre = ',',
-          particle = 'a';
-      sugg = paths.concat(sugg);
-console.log(pathsArr);
       for (let i = 0; i < pathsArr.length; i++) {
-        let x = pathsArr[i];
-        console.log(x);
+        let x = pathsArr[i],
+            s = pathsArr[i];
         // last one
-        if (i == x.length - 1) {
-          pre = 'and';
+        if (pathsArr.length > 1 && i == pathsArr.length - 1) {
+          pre = lastPre;
         }
 
-        // is it the same room as the current location?
-        if (x === saveFile.location) {
-          particle = sak.i18n(i18n.activity.travel.deeper) + x;
-        }
-
-        paths = `${paths} ${pre} ${particle} ${x}`;
+        paths.push(`${pathsArr.length > 1 && i !== 0 ? pre : ''} ${particle} ${x}`);
       }
 
-      return {paths,sugg};
+      return {
+        paths: paths.join(' '),
+        sugg: sugg.concat(pathsArr)
+      };
   },
   areaEncounters: (area) => {
     let e = area.pokemon_encounters,

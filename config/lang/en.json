@@ -8,18 +8,20 @@
     },
     "travel": {
       "getDirections": [
-        "You can see the way to a ",
-        "Around you, you see a ",
-        "Laid before you is a "
+        "You can see the way to",
+        "Around you, you see",
+        "Laid before you is"
       ],
       "move": [
         "You move into ",
         "You step into the ",
         "You make your way into "
       ],
-      "deeper": [
-        "go deeper into the ",
-        "further into the"
+      "another": [
+        "another",
+        "a different",
+        "a new",
+        "one more"
       ]
     }
   }

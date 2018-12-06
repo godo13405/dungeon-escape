@@ -7,7 +7,7 @@ const mapper = {
   paths: ({
     level = saveFile && saveFile.map ? saveFile.map.level : 1,
     theme = saveFile && saveFile.map ? saveFile.map.theme : 'dungeon',
-    location = saveFile && saveFile.location ? saveFile.location : 'stairs down'
+    location = saveFile && saveFile.location && saveFile.location.name ? saveFile.location.name : 'stairs down'
   }) => {
     let here = rooms[location],
         paths = [],
@@ -19,20 +19,30 @@ const mapper = {
       } else {
         exits = here.exits;
       }
+
+      // check we don't have more exits than we can chew (so rooms don't repeat)
+      if (exits > here.paths.length - 1) {
+        exits = here.paths.length - 1;
+      }
+
       for (var i = 0; i < exits; i++) {
-          paths.push(rwc(here.paths));
+          let roo = rwc(here.paths);
+          while (paths.find((r) => {r.id === roo.id})) {
+            roo = rwc(here.paths);
+          }
+          paths.push(roo);
       }
 
       return paths;
     } else {
-      console.log('Invalid location ', location);
+      console.log('Invalid location ', location.name);
     }
   },
   getDescription: (location) => {
     if (rooms[location]) {
       return rooms[location].description;
     } else {
-      console.log('Invalid location ', location);
+      console.log('Invalid location ', location.name);
     }
   }
 }

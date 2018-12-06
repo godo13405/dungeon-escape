@@ -10,7 +10,6 @@ global.i18n = require('./config/lang/en.json');
 global.ex = express();
 
 global.params = {};
-global.suggestions = require('./config/suggestions');
 global.sugg = [];
 
 global.service = require('./service');

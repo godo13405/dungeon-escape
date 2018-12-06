@@ -43,7 +43,7 @@
       "dungeon",
       "cavern"
     ],
-    "description": "An unremarcable room, with stone walls and an earthen floor. There are some objects about, but you can't figure out how they fit together, or what the purpose of this room might have been.",
+    "description": "An unremarkable room, with stone walls and an earthen floor. There are some objects about, but you can't figure out how they fit together, or what the purpose of this room might have been.",
     "exits": [1,3],
     "paths": [
       {
