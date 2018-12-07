@@ -1,9 +1,6 @@
 'use strict';
 
-const rooms = require('./config/map/rooms.json'),
-      themes = require('./config/map/themes.json'),
-      thisTheme = themes[(saveFile && saveFile.map.theme) ? saveFile.map.theme : 'dungeon'],
-      rwc = require('random-weighted-choice');
+const rooms = require('./config/map/rooms.json');
 
 const mapper = {
   paths: ({

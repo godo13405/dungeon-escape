@@ -47,7 +47,11 @@ const webhook = (request, response) => {
 };
 
 global.sak = require('./_swiss-army-knife');
+global.rwc = require('random-weighted-choice');
+let themes = require('./config/themes.json');
+global.thisTheme = themes[(saveFile && saveFile.map.theme) ? saveFile.map.theme : 'dungeon'];
 global.mapper = require('./_map');
+global.encounters = require('./_encounters');
 global.tools = require('./_tools');
 global.responses = require('./_responses');
 

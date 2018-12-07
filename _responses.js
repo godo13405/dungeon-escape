@@ -120,6 +120,7 @@ Would you like to travel or have a look around?`;
   }) => {
     global.saveFile = {
       class: params.Class,
+      level: 1,
       location: {
         "name": 'cell',
         adjacent: [
