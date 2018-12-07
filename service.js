@@ -2,6 +2,12 @@
 
 const service = {
   router: (input, midIntention) => {
+    // encounter trigger
+    let encounterTriggers = require('./config/encounters/triggers.json');
+    if (encounterTriggers.include(input)) {
+      
+    }
+
     if (responses[input]) {
       return responses[input]({input});
     } else {
