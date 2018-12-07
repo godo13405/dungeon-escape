@@ -1,0 +1,39 @@
+{
+  "cell": {
+    "theme": [
+      "dungeon"
+    ],
+      "description": "A small space, lined with cold stone walls. The rusted gate is slightly open and you can just see outside.",
+      "exits": 1
+  },
+  "corridor": {
+    "theme": [
+      "dungeon",
+      "cavern"
+    ],
+    "description": "A dimly lit stone passage extends before you. sconces on the walls provide just enough light to see.",
+    "exits": [1,2]
+  },
+  "room": {
+    "theme": [
+      "dungeon",
+      "cavern"
+    ],
+    "description": "An unremarkable room, with stone walls and an earthen floor. There are some objects about, but you can't figure out how they fit together, or what the purpose of this room might have been.",
+    "exits": [1,3]
+  },
+  "lab": {
+    "theme": [
+      "dungeon",
+      "cavern"
+    ],
+    "description": "Oddly shaped objects lay on tables, bubbling, fizzing and glowing curiously. More than a few oddities are in sight, even some remains of creatures you can't place.",
+    "exits": [1,2]
+  },
+  "stairs": {
+    "theme": [
+      "dungeon"
+    ],
+    "description": "A set of stairs ascending out of view. They should bring you closer to the surface and freedom."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "dungeon": {
+    "rooms": [
+      {
+        "id": "corridor",
+        "weight": 15
+      },
+      {
+        "id": "room",
+        "weight": 4
+      },
+      {
+        "id": "lab",
+        "weight": 2
+      },
+      {
+        "id": "stairs",
+        "weight": 1
+      }
+    ]
+  }
+}

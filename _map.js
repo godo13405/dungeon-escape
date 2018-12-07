@@ -1,13 +1,15 @@
 'use strict';
 
-const rooms = require('./config/rooms.json'),
+const rooms = require('./config/map/rooms.json'),
+      themes = require('./config/map/themes.json'),
+      thisTheme = themes[(saveFile && saveFile.map.theme) ? saveFile.map.theme : 'dungeon'],
       rwc = require('random-weighted-choice');
 
 const mapper = {
   paths: ({
     level = saveFile && saveFile.map ? saveFile.map.level : 1,
     theme = saveFile && saveFile.map ? saveFile.map.theme : 'dungeon',
-    location = saveFile && saveFile.location && saveFile.location.name ? saveFile.location.name : 'stairs down'
+    location = saveFile && saveFile.location && saveFile.location.name ? saveFile.location.name : 'stairs'
   }) => {
     let here = rooms[location],
         paths = [],
@@ -20,17 +22,11 @@ const mapper = {
         exits = here.exits;
       }
 
-      // check we don't have more exits than we can chew (so rooms don't repeat)
-      if (exits > here.paths.length - 1) {
-        exits = here.paths.length - 1;
-      }
-
       for (var i = 0; i < exits; i++) {
-          let roo = rwc(here.paths);
-          while (paths.find((r) => {r.id === roo.id})) {
-            roo = rwc(here.paths);
+          let roo = rwc(thisTheme.rooms);
+          if (!paths.includes(roo)) {
+            paths.push(roo);
           }
-          paths.push(roo);
       }
 
       return paths;

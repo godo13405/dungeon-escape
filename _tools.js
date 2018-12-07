@@ -131,7 +131,7 @@ const tools = {
     pre = ',',
     lastPre = 'and',
     particle = 'a',
-    anotherPre = i18n.activity.travel.another
+    anotherPre = sak.i18n(i18n.activity.travel.another)
   }) => {
       for (let i = 0; i < pathsArr.length; i++) {
         let x = pathsArr[i],
@@ -141,7 +141,12 @@ const tools = {
           pre = lastPre;
         }
 
-        paths.push(`${pathsArr.length > 1 && i !== 0 ? pre : ''} ${particle} ${x}`);
+        // repeat?
+        if (saveFile.location.name === x) {
+          pre = `${pre} ${anotherPre}`;
+        }
+
+        paths.push(`${pathsArr.length > 1 ? pre : ''} ${particle} ${x}`);
       }
 
       return {
