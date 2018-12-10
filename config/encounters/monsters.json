@@ -3,7 +3,9 @@
     "size": "Medium",
     "type": "undead",
     "description": {
-      "short": "A decaying corpse shuffling aimlessly throughout the dungeon.",
+      "short": [
+        "A decaying corpse shuffling aimlessly throughout the dungeon"
+      ],
       "long": "Its body was reanimated somehow, probably through some foul magic. Its flesh is decaying and it stinks of death and decay. You can recognise what remains of some clothing, and it reminds you of what you are wearing yourself. Is this what happens to the prisoners here?"
     },
     "alignment": "neutral evil",

@@ -55,6 +55,15 @@ const sak = {
   }) => {
     return input.substr(start, end).toLowerCase() + input.substr(end, input.length);
   },
+  stringVars: ({
+    string = "",
+    vars = {}
+  }) => {
+    for (let x in vars) {
+      string = string.replace('{'+x+'}', vars[x]);
+    }
+    return string;
+  },
   // combinePhrase: ({
   //   input = [],
   //   separator = ', ',

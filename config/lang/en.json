@@ -24,5 +24,12 @@
         "one more"
       ]
     }
+  },
+  "encounter": {
+    "init": [
+      "You run into {mon}",
+      "{mon} appears",
+      "Suddenly, {mon} shows before you"
+    ]
   }
 }

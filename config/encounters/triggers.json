@@ -1,5 +1,5 @@
-[
-  "travelMove",
-  "travelGetDirections",
-  "exploreLookAround"
-]
+{
+  "travelMove": 100,
+  "travelGetDirections": 100,
+  "exploreLookAround": 100
+}

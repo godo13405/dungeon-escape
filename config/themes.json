@@ -30,8 +30,7 @@
         "monsters": [{
         "id": "Zombie",
         "weight": 40
-      }]},
-      "lab": {}
+      }]}
     }
   }
 }

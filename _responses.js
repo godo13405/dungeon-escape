@@ -30,7 +30,7 @@ Would you like to travel or have a look around?`;
     global.sugg = sugg;
 
     out = tools.setResponse({
-      input:out,
+      input: out,
       suggestions: sugg,
       context
     });
@@ -40,20 +40,22 @@ Would you like to travel or have a look around?`;
   deleteGame: ({
     input = null
   }) => {
-    return responses.trackingNo({input});
+    return responses.trackingNo({
+      input
+    });
   },
   trackingNo: ({
     input = null,
     out = 'Ok, I\'m not recording anything. Come back if you change your mind.'
   }) => {
     global.saveFile = null;
-      out = tools.setResponse({
-        input:out,
-        clearStorage: true,
-        conversationEnd: true
-      });
+    out = tools.setResponse({
+      input: out,
+      clearStorage: true,
+      conversationEnd: true
+    });
 
-      return response.json(out);
+    return response.json(out);
   },
   travelGrind: ({
     input = null,
@@ -65,7 +67,7 @@ Would you like to travel or have a look around?`;
     }
 
     out = tools.setResponse({
-      input:out,
+      input: out,
       suggestions: sugg
     });
 
@@ -76,9 +78,12 @@ Would you like to travel or have a look around?`;
     out = sak.i18n(i18n.activity.travel.getDirections),
     sugg = ['Look around']
   }) => {
-    let exits = tools.getExits({sugg,out});
+    let exits = tools.getExits({
+      sugg,
+      out
+    });
     out = tools.setResponse({
-      input:out + exits.paths,
+      input: out + exits.paths,
       suggestions: exits.sugg
     });
 
@@ -93,11 +98,13 @@ Would you like to travel or have a look around?`;
       "name": params.Room,
       "adjacent": mapper.paths({})
     };
-    let exits = tools.getExits({lastPre: 'or'}),
-        out = tools.setResponse({
-          input: `${sak.i18n(i18n.activity.travel.move)} the ${saveFile.location.name}. You can now have a look around or go to ${exits.paths}`,
-          suggestions: exits.sugg.concat(sugg)
-        });
+    let exits = tools.getExits({
+        lastPre: 'or'
+      }),
+      out = tools.setResponse({
+        input: `${sak.i18n(i18n.activity.travel.move)} the ${saveFile.location.name}. You can now have a look around or go to ${exits.paths}`,
+        suggestions: exits.sugg.concat(sugg)
+      });
 
     return response.json(out);
   },
@@ -106,9 +113,9 @@ Would you like to travel or have a look around?`;
     saveFile = global.saveFile
   }) => {
     let out = mapper.getDescription(saveFile.location),
-        exits = tools.getExits({});
+      exits = tools.getExits({});
     out = tools.setResponse({
-      input:out + " " + exits.paths,
+      input: out + " " + exits.paths,
       suggestions: exits.sugg
     });
 
@@ -133,13 +140,40 @@ Would you like to travel or have a look around?`;
       }
     };
     let out = `Ok then, great ${params.Class}, let's begin your escape. You are in a ${saveFile.location.name}, ${sak.lowerCaseLetter({input: mapper.getDescription(saveFile.location.name)})}`,
-        exits = tools.getExits({sugg: []});
+      exits = tools.getExits({
+        sugg: []
+      });
     out = tools.setResponse({
-      input:out + " " + exits.paths,
+      input: out + " " + exits.paths,
       suggestions: exits.sugg.concat(sugg)
     });
 
     return response.json(out);
+  },
+  encounter: {
+    new: ({
+      input = null,
+      sugg = ['Run']
+    }) => {
+      let mons = encounters.new({});
+      if (mons) {
+        mons = monsters[mons];
+        let out = sak.stringVars({
+          string: sak.i18n(i18n.encounter.init),
+          vars: {
+            mon: sak.i18n(mons.description.short)
+          }
+        });
+        out = tools.setResponse({
+          input: out,
+          suggestions: sugg
+        });
+
+        return response.json(out);
+      } else {
+        return false;
+      }
+    }
   }
 };
 

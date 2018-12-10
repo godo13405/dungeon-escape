@@ -4,11 +4,20 @@ const service = {
   router: (input, midIntention) => {
     // encounter trigger
     let encounterTriggers = require('./config/encounters/triggers.json');
-    if (encounterTriggers.include(input)) {
-      
-    }
-
-    if (responses[input]) {
+    if (encounterTriggers[input]) {
+      let trigg = false;
+      // what are the odds an encounter gets triggered?
+      if (Math.floor(Math.random()*100) < encounterTriggers[input]) {
+        trigg = responses.encounter.new({input});
+      }
+      if (!trigg) {
+        if (responses[input]) {
+          return responses[input]({input});
+        } else {
+          console.log('Can\'t find this response');
+        }
+      }
+    } else if (responses[input]) {
       return responses[input]({input});
     } else {
       console.log('Can\'t find this response');

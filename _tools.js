@@ -164,6 +164,13 @@ const tools = {
     }
 
     return out;
+  },
+  getWeightedChance: ({
+    odds = 0,
+    arr = []
+  }) => {
+      let encounterChance = [{"id": false,"weight": odds}];
+      return encounterChance.concat(arr);
   }
 }
 
