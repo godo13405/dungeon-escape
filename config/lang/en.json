@@ -6,6 +6,10 @@
         "A quick look around reveals nothing"
       ]
     },
+    "next": [
+      "What do you do?",
+      "What now?"
+    ],
     "travel": {
       "getDirections": [
         "You can see the way to",
@@ -30,6 +34,9 @@
       "You run into {mon}",
       "{mon} appears",
       "Suddenly, {mon} shows before you"
+    ],
+    "intro": [
+      "You are fighting a <mon>"
     ]
   }
 }

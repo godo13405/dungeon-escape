@@ -36,7 +36,9 @@ const webhook = (request, response) => {
     global.saveFile = JSON.parse(request.body.originalDetectIntentRequest.payload.user.userStorage);
   }
 
-  if (saveFile && saveFile.location) {
+  if (saveFile && saveFile.class) {
+    global.pcClass = require("./config/PC/classes.json");
+    pcClass = pcClass[saveFile.class];
   }
 
   // Get surface capabilities, such as screen

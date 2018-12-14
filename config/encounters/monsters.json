@@ -26,9 +26,9 @@
     "actions": [
       {
         "name": "Slam",
-        "description": "slashes at you with its rusty sword",
+        "description": ["slashes at you with its rusty sword"],
         "attack_bonus": 3,
-        "damage_dice": [
+        "damage": [
           2,
           5
         ]

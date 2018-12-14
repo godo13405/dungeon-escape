@@ -64,6 +64,13 @@ const sak = {
     }
     return string;
   },
+  getActionNames: actions => {
+    let out = [];
+    for (let x of actions) {
+      out.push(x.name);
+    }
+    return out;
+  },
   // combinePhrase: ({
   //   input = [],
   //   separator = ', ',

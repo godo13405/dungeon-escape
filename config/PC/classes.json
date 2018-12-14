@@ -1,0 +1,82 @@
+{
+  "Barbarian": {
+    "size": "Medium",
+    "description": {
+      "short": [
+        "A decaying corpse shuffling aimlessly throughout the dungeon"
+      ],
+      "long": "Its body was reanimated somehow, probably through some foul magic. Its flesh is decaying and it stinks of death and decay. You can recognise what remains of some clothing, and it reminds you of what you are wearing yourself. Is this what happens to the prisoners here?"
+    },
+    "armor_class": 13,
+    "hit_points": 19,
+    "strength": 13,
+    "dexterity": 9,
+    "constitution": 16,
+    "intelligence": 10,
+    "wisdom": 6,
+    "charisma": 10,
+    "wisdom_save": 0,
+    "damage_vulnerabilities": "",
+    "damage_resistances": "",
+    "damage_immunities": "",
+    "condition_immunities": "poisoned",
+    "actions": [
+      {
+        "name": "Punch",
+        "description": ["punch the <mon> hard"],
+        "attack_bonus": 3,
+        "damage": [
+          4,
+          6
+        ]
+      },
+        {
+          "name": "Kick",
+          "description": ["kick the <mon>"],
+          "attack_bonus": 1,
+          "damage": [
+            5,
+            8
+          ]
+        }
+    ]
+  },
+  "Sorcerer": {
+    "size": "Medium",
+    "description": {
+      "short": [
+        "A decaying corpse shuffling aimlessly throughout the dungeon"
+      ],
+      "long": "Its body was reanimated somehow, probably through some foul magic. Its flesh is decaying and it stinks of death and decay. You can recognise what remains of some clothing, and it reminds you of what you are wearing yourself. Is this what happens to the prisoners here?"
+    },
+    "armor_class": 9,
+    "hit_points": 14,
+    "strength": 9,
+    "dexterity": 12,
+    "constitution": 11,
+    "intelligence": 16,
+    "wisdom": 13,
+    "charisma": 15,
+    "wisdom_save": 2,
+    "actions": [
+      {
+        "name": "Magic Missile",
+        "description": ["glowing darts of magical force shoot from your fingers"],
+        "attack_bonus": 3,
+        "damage": [
+          4,
+          6
+        ]
+      },
+        {
+          "name": "Fire Bolt",
+          "description": ["you point to the <mon> and a bolt of fire shoots from your index finger"],
+          "attack_bonus": 1,
+          "damage": [
+            9,
+            10
+          ]
+        }
+    ]
+  }
+}

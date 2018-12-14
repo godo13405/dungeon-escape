@@ -4,7 +4,7 @@ const service = {
   router: (input, midIntention) => {
     // encounter trigger
     let encounterTriggers = require('./config/encounters/triggers.json');
-    if (encounterTriggers[input]) {
+    if (saveFile.encounter || encounterTriggers[input]) {
       let trigg = false;
       // what are the odds an encounter gets triggered?
       if (Math.floor(Math.random()*100) < encounterTriggers[input]) {

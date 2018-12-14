@@ -26,7 +26,6 @@ Would you like to travel or have a look around?`;
         'No, don\'t track my data'
       ];
     }
-
     global.sugg = sugg;
 
     out = tools.setResponse({
@@ -153,11 +152,19 @@ Would you like to travel or have a look around?`;
   encounter: {
     new: ({
       input = null,
-      sugg = ['Run']
+      sugg = pcClass &&pcClass.actions ? sak.getActionNames(pcClass.actions).concat(['Run away']) : ['Run away']
     }) => {
-      let mons = encounters.new({});
-      if (mons) {
-        mons = monsters[mons];
+      let mon = encounters.new({});
+      if (mon && mon !== "none") {
+        let mons = monsters[mon];
+
+        saveFile.encounter = {
+          "monster": {
+            "name": mon,
+            "hp": mons.hit_points
+          }
+        };
+
         let out = sak.stringVars({
           string: sak.i18n(i18n.encounter.init),
           vars: {
@@ -165,7 +172,7 @@ Would you like to travel or have a look around?`;
           }
         });
         out = tools.setResponse({
-          input: out,
+          input: out + sak.i18n(i18n.activity.next),
           suggestions: sugg
         });
 
@@ -173,6 +180,24 @@ Would you like to travel or have a look around?`;
       } else {
         return false;
       }
+    },
+    current: ({
+      encounter = saveFile.encounter,
+      out = sak.stringVars({
+        string:sak.i18n(i18n.encounter.intro),
+          vars: {
+            mon: saveFile.encounter.monster.name
+          }
+      }),
+      mon = monsters[encounter.monster.name],
+      sugg = pcClass &&pcClass.actions ? sak.getActionNames(pcClass.actions).concat(['Run away']) : ['Run away']
+    }) => {
+      out = tools.setResponse({
+        input: out + sak.i18n(i18n.activity.next),
+        suggestions: sugg
+      });
+
+      return response.json(out);
     }
   }
 };
